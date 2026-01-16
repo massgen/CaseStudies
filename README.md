@@ -1,5 +1,46 @@
 # MassGen Case Studies Summary
 
+## Live Project Visualization
+
+### Fourier Analysis Examples
+
+![Fourier](example_svgs/fourier.svg)
+![Fourier F](example_svgs/fourier_f.svg)
+![Agent 1 Fourier](example_svgs/agent1_fourier.svg)
+
+### Fourier Decomposition
+
+![Fourier Decomposition](example_svgs/fourier_decomposition.svg)
+![Fourier Decomposition 1](example_svgs/fourier_decomposition_1.svg)
+![Fourier Decomposition 2](example_svgs/fourier_decomposition_2.svg)
+![Fourier Decomposition F](example_svgs/fourier_decomposition_f.svg)
+
+### Additional Visualizations
+
+![Visualization 9](example_svgs/svgviewer-output%20(9).svg)
+![Visualization 10](example_svgs/svgviewer-output%20(10).svg)
+![Visualization 11](example_svgs/svgviewer-output%20(11).svg)
+![Visualization 12](example_svgs/svgviewer-output%20(12).svg)
+![Visualization 13](example_svgs/svgviewer-output%20(13).svg)
+![Visualization 14](example_svgs/svgviewer-output%20(14).svg)
+![Visualization 15](example_svgs/svgviewer-output%20(15).svg)
+![Visualization 16](example_svgs/svgviewer-output%20(16).svg)
+![Visualization 17](example_svgs/svgviewer-output%20(17).svg)
+![Visualization 18](example_svgs/svgviewer-output%20(18).svg)
+![Visualization 19](example_svgs/svgviewer-output%20(19).svg)
+![Visualization 20](example_svgs/svgviewer-output%20(20).svg)
+![Visualization 21](example_svgs/svgviewer-output%20(21).svg)
+![Visualization 22](example_svgs/svgviewer-output%20(22).svg)
+![Visualization 23](example_svgs/svgviewer-output%20(23).svg)
+![Visualization 24](example_svgs/svgviewer-output%20(24).svg)
+![Visualization 25](example_svgs/svgviewer-output%20(25).svg)
+![Visualization 26](example_svgs/svgviewer-output%20(26).svg)
+![Visualization 27](example_svgs/svgviewer-output%20(27).svg)
+![Visualization 29](example_svgs/svgviewer-output%20(29).svg)
+![Visualization 30](example_svgs/svgviewer-output%20(30).svg)
+
+---
+
 This document provides a comprehensive overview of all MassGen case studies, organized by category and version.
 
 ## Overview

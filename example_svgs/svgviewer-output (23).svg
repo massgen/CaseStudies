@@ -1,0 +1,536 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="fourierViz" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1400 800" width="1400" height="800" role="img" aria-label="Fourier decomposition of a complex periodic wave">
+  <defs>
+    <!-- Light scientific grid background -->
+    <pattern id="minorGrid" width="20" height="20" patternUnits="userSpaceOnUse">
+      <path d="M 20 0 L 0 0 0 20" fill="none" stroke="#E9EDF5" stroke-width="1"/>
+    </pattern>
+    <pattern id="majorGrid" width="100" height="100" patternUnits="userSpaceOnUse">
+      <rect width="100" height="100" fill="url(#minorGrid)"/>
+      <path d="M 100 0 L 0 0 0 100" fill="none" stroke="#D8DEEB" stroke-width="1.2"/>
+    </pattern>
+
+    <filter id="softGlow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="1.8" result="blur"/>
+      <feColorMatrix type="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 0.45 0"/>
+      <feMerge>
+        <feMergeNode in="blur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+
+    <marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#3B4252" opacity="0.8"/>
+    </marker>
+
+    <clipPath id="clipLeftPlot"><rect x="50" y="120" width="380" height="560" rx="10"/></clipPath>
+    <clipPath id="clipMid1"><rect x="515" y="120" width="380" height="68" rx="8"/></clipPath>
+    <clipPath id="clipMid2"><rect x="515" y="200" width="380" height="68" rx="8"/></clipPath>
+    <clipPath id="clipMid3"><rect x="515" y="280" width="380" height="68" rx="8"/></clipPath>
+    <clipPath id="clipMid4"><rect x="515" y="360" width="380" height="68" rx="8"/></clipPath>
+    <clipPath id="clipMid5"><rect x="515" y="440" width="380" height="68" rx="8"/></clipPath>
+    <clipPath id="clipMid6"><rect x="515" y="520" width="380" height="68" rx="8"/></clipPath>
+    <clipPath id="clipMid7"><rect x="515" y="600" width="380" height="68" rx="8"/></clipPath>
+  </defs>
+
+  <style>
+    :root { color-scheme: light; }
+
+    /* Typed custom property lets CSS animate a real number smoothly */
+    @property --t {
+      syntax: '';
+      inherits: true;
+      initial-value: 0;
+    }
+
+    #fourierViz {
+      --t: 0;
+      animation: timeSweep 6.5s linear infinite;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji";
+    }
+
+    @keyframes timeSweep {
+      from { --t: 0; }
+      to   { --t: 6.283185307179586; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      #fourierViz { animation: none; }
+    }
+
+    .panelTitle { font-size: 16px; font-weight: 650; letter-spacing: 0.3px; fill: #1F2937; }
+    .subTitle { font-size: 12px; fill: #4B5563; }
+    .axis { stroke: #374151; stroke-width: 1.4; }
+    .axisSoft { stroke: #6B7280; stroke-width: 1; opacity: 0.65; }
+    .tickText { font-size: 11px; fill: #4B5563; }
+    .label { font-size: 12px; fill: #374151; }
+    .mono { font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace; }
+
+    .plotFrame { fill: rgba(255,255,255,0.70); stroke: rgba(59,66,82,0.18); stroke-width: 1; }
+
+    .wave { fill: none; stroke-linecap: round; stroke-linejoin: round; }
+    .complex { stroke: #0F172A; stroke-width: 3.2; filter: url(#softGlow); }
+
+    .harm1 { stroke: #2563EB; }
+    .harm2 { stroke: #7C3AED; }
+    .harm3 { stroke: #DB2777; }
+    .harm4 { stroke: #F97316; }
+    .harm5 { stroke: #10B981; }
+    .harm6 { stroke: #14B8A6; }
+    .harm7 { stroke: #64748B; }
+
+    .component { stroke-width: 2.2; opacity: 0.92; }
+
+    .probeLine { stroke: #111827; stroke-dasharray: 4 6; opacity: 0.20; }
+    .connLine { stroke-width: 1.2; opacity: 0.18; }
+
+    .dot { stroke: rgba(15,23,42,0.35); stroke-width: 1; }
+    .dotSum { fill: rgba(15,23,42,0.85); }
+
+    .spectrumAxis { stroke: #374151; stroke-width: 1.2; }
+    .bar { fill: rgba(37,99,235,0.18); stroke: rgba(37,99,235,0.85); stroke-width: 1.3; }
+    .barLabel { font-size: 11px; fill: #374151; }
+
+    .phaseCircle { fill: rgba(255,255,255,0.75); stroke: rgba(55,65,81,0.35); stroke-width: 1; }
+    .phaseHand { stroke: rgba(15,23,42,0.9); stroke-width: 2; stroke-linecap: round; }
+
+    .formula { font-size: 14px; fill: #111827; }
+    .formulaNote { font-size: 12px; fill: #4B5563; }
+
+    .separator { stroke: rgba(15,23,42,0.10); stroke-width: 2; }
+  </style>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="1400" height="800" fill="url(#majorGrid)"/>
+
+  <!-- Panel separators -->
+  <line class="separator" x1="466.666" y1="0" x2="466.666" y2="800"/>
+  <line class="separator" x1="933.333" y1="0" x2="933.333" y2="800"/>
+
+  <!-- HEADERS -->
+  <text class="panelTitle" x="50" y="48">Complex waveform (2 periods)</text>
+  <text class="subTitle" x="50" y="70">Sum of 7 harmonics • time-varying phase shows oscillation</text>
+
+  <text class="panelTitle" x="515" y="48">Fourier decomposition (components)</text>
+  <text class="subTitle" x="515" y="70">Each term: Aₙ·sin(nθ + φₙ + n·t)</text>
+
+  <text class="panelTitle" x="975" y="48">Spectra</text>
+  <text class="subTitle" x="975" y="70">Magnitude and phase of the 7 components</text>
+
+  <!-- LEFT PANEL: Complex waveform -->
+  <g id="leftPanel">
+    <rect class="plotFrame" x="50" y="120" width="380" height="560" rx="10"/>
+
+    <!-- Axes -->
+    <line class="axis" x1="70" y1="400" x2="420" y2="400" marker-end="url(#arrow)"/>
+    <line class="axis" x1="70" y1="660" x2="70" y2="140" marker-end="url(#arrow)"/>
+
+    <!-- x ticks for 0..4π -->
+    <g class="tickText">
+      <line class="axisSoft" x1="70" y1="400" x2="70" y2="406"/>
+      <text x="66" y="424">0</text>
+
+      <line class="axisSoft" x1="157.5" y1="400" x2="157.5" y2="406"/>
+      <text x="148" y="424">π</text>
+
+      <line class="axisSoft" x1="245" y1="400" x2="245" y2="406"/>
+      <text x="232" y="424">2π</text>
+
+      <line class="axisSoft" x1="332.5" y1="400" x2="332.5" y2="406"/>
+      <text x="319" y="424">3π</text>
+
+      <line class="axisSoft" x1="420" y1="400" x2="420" y2="406"/>
+      <text x="404" y="424">4π</text>
+    </g>
+
+    <text class="label" x="405" y="392">θ</text>
+    <text class="label" x="54" y="154" transform="rotate(-90 54 154)">x(θ)</text>
+
+    <!-- Probe line at θ = 2π -->
+    <line id="probeLeft" class="probeLine" x1="245" y1="130" x2="245" y2="670"/>
+
+    <g clip-path="url(#clipLeftPlot)">
+      <path id="complexPath" class="wave complex" d=""/>
+
+      <!-- partial-sum markers at θ=2π -->
+      <g id="partialSumDots"></g>
+
+      <!-- A faint overlay showing the baseline (y=0) in the plot area -->
+      <line class="axisSoft" x1="50" y1="400" x2="430" y2="400"/>
+    </g>
+
+    <text class="subTitle" x="78" y="645">dashed line: evaluation point (θ = 2π)</text>
+  </g>
+
+  <!-- MIDDLE PANEL: Components -->
+  <g id="midPanel">
+    <!-- Frames for each mini plot -->
+    <rect class="plotFrame" x="515" y="120" width="380" height="68" rx="8"/>
+    <rect class="plotFrame" x="515" y="200" width="380" height="68" rx="8"/>
+    <rect class="plotFrame" x="515" y="280" width="380" height="68" rx="8"/>
+    <rect class="plotFrame" x="515" y="360" width="380" height="68" rx="8"/>
+    <rect class="plotFrame" x="515" y="440" width="380" height="68" rx="8"/>
+    <rect class="plotFrame" x="515" y="520" width="380" height="68" rx="8"/>
+    <rect class="plotFrame" x="515" y="600" width="380" height="68" rx="8"/>
+
+    <!-- Mini axes and labels -->
+    <g class="tickText">
+      <text x="525" y="140">f</text>
+      <text x="525" y="220">2f</text>
+      <text x="525" y="300">3f</text>
+      <text x="525" y="380">4f</text>
+      <text x="525" y="460">5f</text>
+      <text x="525" y="540">6f</text>
+      <text x="525" y="620">7f</text>
+    </g>
+
+    <g id="componentLabels" class="mono"></g>
+
+    <!-- Probe lines (same θ=2π mapping) in each mini plot -->
+    <line class="probeLine" x1="705" y1="124" x2="705" y2="186"/>
+    <line class="probeLine" x1="705" y1="204" x2="705" y2="266"/>
+    <line class="probeLine" x1="705" y1="284" x2="705" y2="346"/>
+    <line class="probeLine" x1="705" y1="364" x2="705" y2="426"/>
+    <line class="probeLine" x1="705" y1="444" x2="705" y2="506"/>
+    <line class="probeLine" x1="705" y1="524" x2="705" y2="586"/>
+    <line class="probeLine" x1="705" y1="604" x2="705" y2="666"/>
+
+    <!-- Component wave paths -->
+    <g clip-path="url(#clipMid1)"><path id="c1" class="wave component harm1" d=""/></g>
+    <g clip-path="url(#clipMid2)"><path id="c2" class="wave component harm2" d=""/></g>
+    <g clip-path="url(#clipMid3)"><path id="c3" class="wave component harm3" d=""/></g>
+    <g clip-path="url(#clipMid4)"><path id="c4" class="wave component harm4" d=""/></g>
+    <g clip-path="url(#clipMid5)"><path id="c5" class="wave component harm5" d=""/></g>
+    <g clip-path="url(#clipMid6)"><path id="c6" class="wave component harm6" d=""/></g>
+    <g clip-path="url(#clipMid7)"><path id="c7" class="wave component harm7" d=""/></g>
+
+    <!-- Dots at probe θ=2π for each component -->
+    <g id="componentDots"></g>
+
+    <!-- Connection lines between each component contribution and the corresponding partial sum dot -->
+    <g id="connections"></g>
+  </g>
+
+  <!-- RIGHT PANEL: Spectra + formula -->
+  <g id="rightPanel">
+    <!-- Phase spectrum -->
+    <text class="label" x="975" y="112">Phase spectrum</text>
+    <rect class="plotFrame" x="975" y="120" width="380" height="230" rx="10"/>
+
+    <g id="phaseSpectrum" transform="translate(975 120)">
+      <!-- circles and hands placed by script -->
+    </g>
+
+    <!-- Magnitude spectrum -->
+    <text class="label" x="975" y="412">Magnitude spectrum</text>
+    <rect class="plotFrame" x="975" y="420" width="380" height="260" rx="10"/>
+
+    <g id="magnitudeSpectrum" transform="translate(975 420)">
+      <line class="spectrumAxis" x1="40" y1="230" x2="360" y2="230" marker-end="url(#arrow)"/>
+      <line class="spectrumAxis" x1="40" y1="230" x2="40" y2="25" marker-end="url(#arrow)"/>
+      <text class="tickText" x="344" y="248">n</text>
+      <text class="tickText" x="16" y="40" transform="rotate(-90 16 40)">|Aₙ|</text>
+      <g id="bars"></g>
+    </g>
+
+    <!-- Fourier series formula -->
+    <g transform="translate(975 700)">
+      <text class="formula mono" x="0" y="0">x(θ, t) = Σ<tspan baseline-shift="sub">n=1</tspan><tspan baseline-shift="super">7</tspan> A<tspan baseline-shift="sub">n</tspan> · sin(nθ + φ<tspan baseline-shift="sub">n</tspan> + n·t)</text>
+      <text class="formulaNote" x="0" y="24">(θ spans 0→4π for two periods; t is animated for visual verification)</text>
+    </g>
+  </g>
+
+  <script><![CDATA[
+  (function () {
+    const svg = document.getElementById('fourierViz');
+
+    // Harmonic coefficients picked to create sharper features than a single sine.
+    const A = [1.00, 0.55, 0.38, 0.30, 0.23, 0.18, 0.13];
+    const phi = [0.10, 1.30, -0.90, 2.20, -1.65, 0.65, -2.35];
+
+    const paths = [
+      document.getElementById('c1'),
+      document.getElementById('c2'),
+      document.getElementById('c3'),
+      document.getElementById('c4'),
+      document.getElementById('c5'),
+      document.getElementById('c6'),
+      document.getElementById('c7')
+    ];
+    const complexPath = document.getElementById('complexPath');
+
+    const partialSumDots = document.getElementById('partialSumDots');
+    const componentDots = document.getElementById('componentDots');
+    const connections = document.getElementById('connections');
+    const componentLabels = document.getElementById('componentLabels');
+
+    const barsG = document.getElementById('bars');
+    const phaseG = document.getElementById('phaseSpectrum');
+
+    // Layout constants (keep in sync with SVG geometry)
+    const leftPlot = { x: 70, y: 120, w: 350, h: 560, yRange: 3.0 }; // axis origin at x=70
+    const midPlot = { x: 515, y: 120, w: 380, h: 68, gap: 12, yRange: 1.15 };
+
+    // x spans two periods: 0..4π
+    const X0 = 0;
+    const X1 = 4 * Math.PI;
+    const probeTheta = 2 * Math.PI;
+
+    function mapX(plot, theta) {
+      const u = (theta - X0) / (X1 - X0);
+      return plot.x + (10 + u * (plot.w - 20));
+    }
+    function mapY(plot, y) {
+      const cy = plot.y + plot.h / 2;
+      const s = (plot.h * 0.45) / plot.yRange;
+      return cy - y * s;
+    }
+
+    function dFromFunc(plot, fn, samples = 680) {
+      let d = '';
+      for (let i = 0; i <= samples; i++) {
+        const theta = X0 + (i / samples) * (X1 - X0);
+        const x = mapX(plot, theta);
+        const y = mapY(plot, fn(theta));
+        d += (i === 0 ? 'M ' : ' L ') + x.toFixed(2) + ' ' + y.toFixed(2);
+      }
+      return d;
+    }
+
+    function sumAt(theta, t) {
+      let s = 0;
+      for (let n = 1; n <= 7; n++) {
+        s += A[n - 1] * Math.sin(n * theta + phi[n - 1] + n * t);
+      }
+      return s;
+    }
+
+    function componentAt(n, theta, t) {
+      return A[n - 1] * Math.sin(n * theta + phi[n - 1] + n * t);
+    }
+
+    function readTimeFromCSS() {
+      const raw = getComputedStyle(svg).getPropertyValue('--t');
+      const v = parseFloat(raw);
+      if (Number.isFinite(v)) return v;
+      // Fallback if typed property not supported
+      const now = (performance && performance.now ? performance.now() : Date.now());
+      return (now / 1000) * (2 * Math.PI / 6.5);
+    }
+
+    // Static: bar chart and labels
+    function initStatic() {
+      // Component labels (A_n)
+      const labelYs = Array.from({ length: 7 }, (_, i) => midPlot.y + i * (midPlot.h + midPlot.gap) + 18);
+      const labelX = midPlot.x + midPlot.w - 10;
+      componentLabels.innerHTML = '';
+      for (let i = 0; i < 7; i++) {
+        const y = labelYs[i];
+        const txt = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+        txt.setAttribute('x', labelX);
+        txt.setAttribute('y', y);
+        txt.setAttribute('text-anchor', 'end');
+        txt.setAttribute('class', 'tickText mono');
+        txt.textContent = `A${i + 1}=${A[i].toFixed(2)}`;
+        componentLabels.appendChild(txt);
+      }
+
+      // Magnitude spectrum bars (static magnitudes)
+      barsG.innerHTML = '';
+      const maxA = Math.max(...A);
+      const baseY = 230;
+      const chartH = 190;
+      const chartX0 = 55;
+      const barW = 36;
+      const gap = 10;
+      for (let i = 0; i < 7; i++) {
+        const x = chartX0 + i * (barW + gap);
+        const h = (A[i] / maxA) * chartH;
+        const rect = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
+        rect.setAttribute('x', x);
+        rect.setAttribute('y', (baseY - h).toFixed(2));
+        rect.setAttribute('width', barW);
+        rect.setAttribute('height', h.toFixed(2));
+        rect.setAttribute('rx', '4');
+        rect.setAttribute('class', 'bar');
+        barsG.appendChild(rect);
+
+        const lbl = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+        lbl.setAttribute('x', x + barW / 2);
+        lbl.setAttribute('y', 250);
+        lbl.setAttribute('text-anchor', 'middle');
+        lbl.setAttribute('class', 'barLabel');
+        lbl.textContent = `${i + 1}f`;
+        barsG.appendChild(lbl);
+      }
+
+      // Phase spectrum placeholders
+      // 7 circles in a row, hands updated in animation loop
+      phaseG.innerHTML = '';
+      const px0 = 35;
+      const py0 = 35;
+      const cellW = 52;
+      const r = 18;
+      for (let i = 0; i < 7; i++) {
+        const cx = px0 + i * cellW + r;
+        const cy = py0 + r;
+
+        const label = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+        label.setAttribute('x', cx);
+        label.setAttribute('y', cy + 42);
+        label.setAttribute('text-anchor', 'middle');
+        label.setAttribute('class', 'tickText');
+        label.textContent = `${i + 1}f`;
+        phaseG.appendChild(label);
+
+        const c = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+        c.setAttribute('cx', cx);
+        c.setAttribute('cy', cy);
+        c.setAttribute('r', r);
+        c.setAttribute('class', 'phaseCircle');
+        phaseG.appendChild(c);
+
+        const hand = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+        hand.setAttribute('x1', cx);
+        hand.setAttribute('y1', cy);
+        hand.setAttribute('x2', cx);
+        hand.setAttribute('y2', cy - r + 3);
+        hand.setAttribute('class', 'phaseHand');
+        hand.setAttribute('data-n', String(i + 1));
+        hand.setAttribute('id', `phaseHand${i + 1}`);
+        phaseG.appendChild(hand);
+
+        const center = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+        center.setAttribute('cx', cx);
+        center.setAttribute('cy', cy);
+        center.setAttribute('r', 2.4);
+        center.setAttribute('fill', 'rgba(15,23,42,0.85)');
+        phaseG.appendChild(center);
+      }
+
+      const note = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+      note.setAttribute('x', 20);
+      note.setAttribute('y', 160);
+      note.setAttribute('class', 'formulaNote');
+      note.textContent = 'hands show instantaneous phase: φₙ + n·t';
+      phaseG.appendChild(note);
+    }
+
+    function update(t) {
+      // Update component paths
+      for (let i = 0; i < 7; i++) {
+        const n = i + 1;
+        const plot = {
+          x: midPlot.x,
+          y: midPlot.y + i * (midPlot.h + midPlot.gap),
+          w: midPlot.w,
+          h: midPlot.h,
+          yRange: midPlot.yRange
+        };
+        paths[i].setAttribute('d', dFromFunc(plot, (theta) => componentAt(n, theta, t), 420));
+      }
+
+      // Update complex wave path
+      complexPath.setAttribute('d', dFromFunc(leftPlot, (theta) => sumAt(theta, t), 740));
+
+      // Probe dots + partial sums at θ=2π
+      const probeXLeft = mapX(leftPlot, probeTheta);
+      const sumY = sumAt(probeTheta, t);
+
+      // Build partial sums and connecting lines
+      partialSumDots.innerHTML = '';
+      componentDots.innerHTML = '';
+      connections.innerHTML = '';
+
+      let running = 0;
+      const colors = ['harm1','harm2','harm3','harm4','harm5','harm6','harm7'];
+      for (let i = 0; i < 7; i++) {
+        const n = i + 1;
+        const cY = componentAt(n, probeTheta, t);
+        running += cY;
+
+        // Dot in component plot
+        const plotY0 = midPlot.y + i * (midPlot.h + midPlot.gap);
+        const compPlot = { x: midPlot.x, y: plotY0, w: midPlot.w, h: midPlot.h, yRange: midPlot.yRange };
+        const probeXMid = mapX(compPlot, probeTheta);
+        const probeYMid = mapY(compPlot, cY);
+
+        const dotC = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+        dotC.setAttribute('cx', probeXMid);
+        dotC.setAttribute('cy', probeYMid);
+        dotC.setAttribute('r', 3.6);
+        dotC.setAttribute('class', `dot ${colors[i]}`);
+        dotC.setAttribute('fill', 'white');
+        componentDots.appendChild(dotC);
+
+        const dotCfill = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+        dotCfill.setAttribute('cx', probeXMid);
+        dotCfill.setAttribute('cy', probeYMid);
+        dotCfill.setAttribute('r', 1.8);
+        dotCfill.setAttribute('class', colors[i]);
+        dotCfill.setAttribute('fill', 'currentColor');
+        // currentColor isn't inherited for SVG elements consistently; set explicit fill.
+        dotCfill.setAttribute('fill', ['#2563EB','#7C3AED','#DB2777','#F97316','#10B981','#14B8A6','#64748B'][i]);
+        componentDots.appendChild(dotCfill);
+
+        // Partial sum dot on complex wave
+        const probeYLeft = mapY(leftPlot, running);
+        const dotS = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+        dotS.setAttribute('cx', probeXLeft);
+        dotS.setAttribute('cy', probeYLeft);
+        dotS.setAttribute('r', 4.0);
+        dotS.setAttribute('class', `dot ${colors[i]}`);
+        dotS.setAttribute('fill', 'rgba(255,255,255,0.95)');
+        partialSumDots.appendChild(dotS);
+
+        const dotSfill = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+        dotSfill.setAttribute('cx', probeXLeft);
+        dotSfill.setAttribute('cy', probeYLeft);
+        dotSfill.setAttribute('r', 2.1);
+        dotSfill.setAttribute('fill', ['#2563EB','#7C3AED','#DB2777','#F97316','#10B981','#14B8A6','#64748B'][i]);
+        partialSumDots.appendChild(dotSfill);
+
+        // Connection line from component dot to partial sum dot
+        const line = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+        const midX = (probeXMid + probeXLeft) / 2;
+        const d = `M ${probeXMid.toFixed(2)} ${probeYMid.toFixed(2)} C ${midX.toFixed(2)} ${(probeYMid).toFixed(2)}, ${midX.toFixed(2)} ${(probeYLeft).toFixed(2)}, ${probeXLeft.toFixed(2)} ${probeYLeft.toFixed(2)}`;
+        line.setAttribute('d', d);
+        line.setAttribute('class', `connLine ${colors[i]}`);
+        line.setAttribute('fill', 'none');
+        connections.appendChild(line);
+      }
+
+      // Final sum dot (dark) at probe
+      const finalDot = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+      finalDot.setAttribute('cx', probeXLeft);
+      finalDot.setAttribute('cy', mapY(leftPlot, sumY));
+      finalDot.setAttribute('r', 5.2);
+      finalDot.setAttribute('class', 'dot dotSum');
+      partialSumDots.appendChild(finalDot);
+
+      // Update phase hands (φ_n + n·t)
+      for (let i = 0; i < 7; i++) {
+        const n = i + 1;
+        const angle = (phi[i] + n * t); // radians
+        const hand = document.getElementById(`phaseHand${n}`);
+        if (!hand) continue;
+
+        const x1 = parseFloat(hand.getAttribute('x1'));
+        const y1 = parseFloat(hand.getAttribute('y1'));
+        // Hand line goes to y2; rotate around center (x1,y1)
+        const deg = (angle * 180) / Math.PI;
+        hand.setAttribute('transform', `rotate(${deg.toFixed(2)} ${x1} ${y1})`);
+      }
+    }
+
+    function frame() {
+      const t = readTimeFromCSS();
+      update(t);
+      requestAnimationFrame(frame);
+    }
+
+    initStatic();
+    requestAnimationFrame(frame);
+  })();
+  ]]></script>
+</svg>
