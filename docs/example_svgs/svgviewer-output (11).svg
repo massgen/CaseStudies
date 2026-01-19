@@ -217,7 +217,7 @@ Animation: CSS custom propert drives an inline JS re-sampling of all sine paths.
       </g>
     </g>
 
-    <text class="legendSmall" x="510" y="732">Faint curves show each component’s contribution at the probe θ=2π (animated).</text>
+    <text class="legendSmall" x="510" y="732">Faint curves show each component’s contribution at the probe θ=2π.</text>
   </g>
 
   <!-- Connection curves (updated by JS) -->
@@ -367,6 +367,12 @@ Animation: CSS custom propert drives an inline JS re-sampling of all sine paths.
         conn: Array.from({length:N}, (_,i) => document.getElementById('conn'+(i+1))),
       };
 
+      // Get phase indicator elements
+      const phaseIndicators = document.getElementById('phaseIndicators');
+      const phaseGroups = phaseIndicators.querySelectorAll('g[transform^="translate"]');
+      const phaseHands = Array.from(phaseGroups).map(g => g.querySelector('.phaseHand'));
+      const phaseDots = Array.from(phaseGroups).map(g => g.querySelector('.phaseDot'));
+
       function cssTime01(){
         const v = parseFloat(getComputedStyle(svg).getPropertyValue('--t'));
         return Number.isFinite(v) ? v : 0;
@@ -445,6 +451,22 @@ Animation: CSS custom propert drives an inline JS re-sampling of all sine paths.
         // Total dot on left
         const yTotal = leftPlot.cy - composite(thetaProbe, omega) * leftPlot.sy;
         setCircleY(el.dotTotal, yTotal);
+
+        // Rotate phase wheels based on their frequency and animation time
+        for(let i=0;i<N;i++){
+          const n = i+1;
+          // Calculate rotation angle: static phase offset + animated rotation
+          const staticPhase = (Phi[i] * 180 / Math.PI); // Convert to degrees
+          const animatedRotation = (n * omega * 180 / Math.PI); // Each harmonic rotates at n times the base frequency
+          const totalRotation = staticPhase + animatedRotation;
+          
+          if(phaseHands[i]){
+            phaseHands[i].setAttribute('transform', `rotate(${totalRotation.toFixed(2)})`);
+          }
+          if(phaseDots[i]){
+            phaseDots[i].setAttribute('transform', `rotate(${totalRotation.toFixed(2)})`);
+          }
+        }
 
         requestAnimationFrame(render);
       }
