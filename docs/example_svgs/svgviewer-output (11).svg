@@ -302,7 +302,7 @@ Animation: CSS custom propert drives an inline JS re-sampling of all sine paths.
     <g>
       <line class="axis" x1="990" y1="725" x2="1330" y2="725"/>
       <line class="axis" x1="990" y1="500" x2="990" y2="725"/>
-      <text class="axisLabel" x="1330" y="660" text-anchor="end">frequency</text>
+      <text class="axisLabel" x="1330" y="680" text-anchor="end">frequency</text>
       <text class="axisLabel" x="1002" y="513">|A|</text>
     </g>
 
