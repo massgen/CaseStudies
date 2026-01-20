@@ -47,17 +47,17 @@
   </g>
 
   <!-- LEFT PIPELINE: CNN -->
-  <g transform="translate(100, 50)">
+  <g transform="translate(100, 80)">
     <!-- Stage 1: Input Image -->
     <g transform="translate(150, 0)">
-      <rect x="-40" y="0" width="80" height="80" fill="#fff" stroke="#333" stroke-width="1.5"/>
-      <image href="https://via.placeholder.com/80?text=IMG" x="-40" y="0" width="80" height="80" opacity="0.1"/>
-      <rect x="-35" y="5" width="70" height="70" fill="#A5C8E1" opacity="0.4"/>
-      <circle cx="0" cy="40" r="25" fill="#4A90E2" opacity="0.6"/>
-      <text x="0" y="95" font-family="Arial" font-size="12" font-weight="bold" text-anchor="middle">Input Image</text>
-      <text x="0" y="110" font-family="Arial" font-size="11" fill="#666" text-anchor="middle">224×224×3</text>
+      <rect x="-30" y="0" width="60" height="60" fill="#fff" stroke="#333" stroke-width="1.5"/>
+      <image href="https://via.placeholder.com/60?text=IMG" x="-30" y="0" width="60" height="60" opacity="0.1"/>
+      <rect x="-26" y="4" width="52" height="52" fill="#A5C8E1" opacity="0.4"/>
+      <circle cx="0" cy="30" r="18" fill="#4A90E2" opacity="0.6"/>
+      <text x="0" y="73" font-family="Arial" font-size="12" font-weight="bold" text-anchor="middle">Input Image</text>
+      <text x="0" y="87" font-family="Arial" font-size="11" fill="#666" text-anchor="middle">224×224×3</text>
     </g>
-    <line x1="150" y1="120" x2="150" y2="150" stroke="#555" stroke-width="1.2" marker-end="url(#arrow)"/>
+    <line x1="150" y1="95" x2="150" y2="125" stroke="#555" stroke-width="1.2" marker-end="url(#arrow)"/>
 
     <!-- Stage 2: Conv Layers -->
     <g transform="translate(60, 160)">
@@ -107,20 +107,20 @@
   </g>
 
   <!-- RIGHT PIPELINE: TRANSFORMER -->
-  <g transform="translate(700, 50)">
+  <g transform="translate(700, 80)">
     <!-- Stage 1: Input + Patch Embedding -->
     <g transform="translate(200, 0)">
-      <rect x="-40" y="0" width="80" height="80" fill="#fff" stroke="#333" stroke-width="1.5"/>
-      <rect x="-35" y="5" width="70" height="70" fill="#A5C8E1" opacity="0.4"/>
+      <rect x="-30" y="0" width="60" height="60" fill="#fff" stroke="#333" stroke-width="1.5"/>
+      <rect x="-26" y="4" width="52" height="52" fill="#A5C8E1" opacity="0.4"/>
       <!-- Patch Grid -->
       <g stroke="#fff" stroke-width="1">
-        <line x1="-20" y1="0" x2="-20" y2="80"/><line x1="0" y1="0" x2="0" y2="80"/><line x1="20" y1="0" x2="20" y2="80"/>
-        <line x1="-40" y1="20" x2="40" y2="20"/><line x1="-40" y1="40" x2="40" y2="40"/><line x1="-40" y1="60" x2="40" y2="60"/>
+        <line x1="-15" y1="0" x2="-15" y2="60"/><line x1="0" y1="0" x2="0" y2="60"/><line x1="15" y1="0" x2="15" y2="60"/>
+        <line x1="-30" y1="15" x2="30" y2="15"/><line x1="-30" y1="30" x2="30" y2="30"/><line x1="-30" y1="45" x2="30" y2="45"/>
       </g>
-      <text x="0" y="95" font-family="Arial" font-size="12" font-weight="bold" text-anchor="middle">Patch Embedding</text>
-      <text x="0" y="110" font-family="Arial" font-size="11" fill="#666" text-anchor="middle">14×14×768</text>
+      <text x="0" y="73" font-family="Arial" font-size="12" font-weight="bold" text-anchor="middle">Patch Embedding</text>
+      <text x="0" y="87" font-family="Arial" font-size="11" fill="#666" text-anchor="middle">14×14×768</text>
     </g>
-    <line x1="200" y1="120" x2="200" y2="150" stroke="#555" stroke-width="1.2" marker-end="url(#arrow)"/>
+    <line x1="200" y1="95" x2="200" y2="125" stroke="#555" stroke-width="1.2" marker-end="url(#arrow)"/>
 
     <!-- Stage 2: Positional Encoding -->
     <g transform="translate(110, 160)">
