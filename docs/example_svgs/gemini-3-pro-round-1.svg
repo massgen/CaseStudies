@@ -157,7 +157,7 @@
 
   <g transform="translate(980, 50)">
     
-    <text x="180" y="-20" class="title-text" text-anchor="middle">Frequency Domain & Formula</text>
+    <text x="180" y="-20" class="title-text" text-anchor="middle">Frequency Domain Formula</text>
      <rect x="10" y="10" width="340" height="60" fill="white" stroke="#bdc3c7" rx="5"/>
     <text x="180" y="45" class="formula-text" text-anchor="middle">y(t) = Σ Aₙ sin(nωt + φₙ)</text>
     <text x="180" y="65" class="label-text" text-anchor="middle" font-size="12px">for n = 1 to 7</text>

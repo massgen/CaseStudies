@@ -221,6 +221,15 @@
         
         <div class="section">
             <h2>Scientific and Engineering Figure Generation</h2>
+            <div style="background: #f8f9fa; border-left: 4px solid #667eea; padding: 15px; margin-bottom: 25px; border-radius: 4px;">
+                <div style="color: #555; font-size: 14px; font-family: 'Courier New', monospace; cursor: pointer;" onclick="togglePrompt(this)">
+                    <strong style="color: #764ba2;">Prompt:</strong> Create an SVG demonstrating Fourier decomposition of a complex periodic wave. Left third: A complex waveform (sum of at least 7 sine waves...
+                    <span style="color: #667eea; font-weight: 600; margin-left: 5px;">[Click to expand]</span>
+                </div>
+                <div style="display: none; color: #555; font-size: 14px; font-family: 'Courier New', monospace; margin-top: 10px; line-height: 1.8;">
+                    Create an SVG demonstrating Fourier decomposition of a complex periodic wave. Left third: A complex waveform (sum of at least 7 sine waves with different frequencies and amplitudes) plotted on an x-y axis spanning two full periods. The wave should have interesting features (sharp peaks, flat regions) showing it's not a simple sine. Middle third: Show the decomposition process with 7 individual sine wave components stacked vertically, each on its own mini-axis. Each component should be labeled with its frequency (f, 2f, 3f, etc.) and amplitude coefficient. Draw faint connection lines from each component to where it contributes to the complex wave. Right third: Bottom section shows the magnitude spectrum as a bar chart (frequency on x-axis, magnitude on y-axis) with 7 bars corresponding to the components. The top section shows the phase spectrum as circular indicators (small circles with a radius line showing phase angle). Include the Fourier series formula. Add smooth CSS animation that oscillates all waves in sync at their respective frequencies so the decomposition is visually verifiable. Scientific visualization style with a light grid background. 1400×800 viewBox. Every time you have a new answer, save the svg file to your workspace.
+                </div>
+            </div>
             <div class="subsection-header" onclick="toggleSection(this)">
                 <span>MassGen Answer</span>
             </div>
@@ -272,6 +281,24 @@
                     <h3>GPT 5.2 Thinking Run 2</h3>
                     <div class="svg-container">
                         <object data="example_svgs/gpt-round-2.svg" type="image/svg+xml"></object>
+                    </div>
+                </div>
+                <div class="svg-item">
+                    <h3>Claude 4.5 Opus Run 3</h3>
+                    <div class="svg-container">
+                        <object data="example_svgs/claude-round-3.svg" type="image/svg+xml"></object>
+                    </div>
+                </div>
+                <div class="svg-item">
+                    <h3>Gemini 3 Pro Run 3</h3>
+                    <div class="svg-container">
+                        <object data="example_svgs/gemini-3-pro-round-3.svg" type="image/svg+xml"></object>
+                    </div>
+                </div>
+                <div class="svg-item">
+                    <h3>GPT 5.2 Thinking Run 3</h3>
+                    <div class="svg-container">
+                        <object data="example_svgs/gpt-round-3.svg" type="image/svg+xml"></object>
                     </div>
                 </div>
                 </div>
@@ -351,6 +378,17 @@
             header.classList.toggle('active');
             const content = header.nextElementSibling;
             content.classList.toggle('active');
+        }
+        
+        function togglePrompt(element) {
+            const fullPrompt = element.nextElementSibling;
+            if (fullPrompt.style.display === 'none') {
+                fullPrompt.style.display = 'block';
+                element.innerHTML = '<strong style="color: #764ba2;">Prompt:</strong> Create an SVG demonstrating Fourier decomposition of a complex periodic wave. Left third: A complex waveform (sum of at least 7 sine waves... <span style="color: #667eea; font-weight: 600; margin-left: 5px;">[Click to collapse]</span>';
+            } else {
+                fullPrompt.style.display = 'none';
+                element.innerHTML = '<strong style="color: #764ba2;">Prompt:</strong> Create an SVG demonstrating Fourier decomposition of a complex periodic wave. Left third: A complex waveform (sum of at least 7 sine waves... <span style="color: #667eea; font-weight: 600; margin-left: 5px;">[Click to expand]</span>';
+            }
         }
     </script>
 </body>
