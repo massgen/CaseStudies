@@ -1,0 +1,126 @@
+<svg width="1400" height="700" viewBox="0 0 1400 700" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <!-- Purple to Orange Gradient for consistent theming -->
+    <linearGradient id="rowGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#8e44ad;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#f39c12;stop-opacity:1" />
+    </linearGradient>
+
+    <!-- Gaussian Noise Filters (increasing intensity) -->
+    <filter id="n1"><feTurbulence type="fractalNoise" baseFrequency="0.8" numOctaves="2" result="n"/><feColorMatrix type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.2 0"/><feBlend in="SourceGraphic" in2="n" mode="overlay"/></filter>
+    <filter id="n2"><feTurbulence type="fractalNoise" baseFrequency="0.85" numOctaves="2" result="n"/><feColorMatrix type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.4 0"/><feBlend in="SourceGraphic" in2="n" mode="overlay"/></filter>
+    <filter id="n3"><feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="2" result="n"/><feColorMatrix type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.6 0"/><feBlend in="SourceGraphic" in2="n" mode="overlay"/></filter>
+    <filter id="n4"><feTurbulence type="fractalNoise" baseFrequency="0.95" numOctaves="3" result="n"/><feColorMatrix type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.8 0"/><feBlend in="SourceGraphic" in2="n" mode="overlay"/></filter>
+    <filter id="n5"><feTurbulence type="fractalNoise" baseFrequency="1.0" numOctaves="3" result="n"/><feColorMatrix type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.95 0"/><feBlend in="SourceGraphic" in2="n" mode="overlay"/></filter>
+    <filter id="n-pure"><feTurbulence type="fractalNoise" baseFrequency="1.1" numOctaves="4" result="n"/></filter>
+
+    <!-- Cat Symbol -->
+    <symbol id="cat" viewBox="0 0 100 100">
+      <circle cx="50" cy="50" r="45" fill="none" stroke="currentColor" stroke-width="3" />
+      <path d="M25 35 L35 15 L45 35" fill="none" stroke="currentColor" stroke-width="3" />
+      <path d="M75 35 L65 15 L55 35" fill="none" stroke="currentColor" stroke-width="3" />
+      <circle cx="35" cy="45" r="4" fill="currentColor" />
+      <circle cx="65" cy="45" r="4" fill="currentColor" />
+      <path d="M40 65 Q50 75 60 65" fill="none" stroke="currentColor" stroke-width="3" />
+      <path d="M30 65 L10 65 M30 70 L10 75 M70 65 L90 65 M70 70 L90 75" stroke="currentColor" stroke-width="2" />
+    </symbol>
+
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="9" refY="5" orient="auto">
+      <path d="M0,0 L10,5 L0,10 Z" fill="#666" />
+    </marker>
+  </defs>
+
+  <rect width="1400" height="700" fill="#fff" />
+
+  <!-- FORWARD PROCESS (Top Row) -->
+  <text x="50" y="50" font-family="Arial, sans-serif" font-size="20" font-weight="bold" fill="#8e44ad">Forward Process: q(x_t | x_{t-1})</text>
+  <g transform="translate(100, 80)">
+    <!-- Stages 0-6 -->
+    <g transform="translate(0,0)"><use href="#cat" width="120" height="120" color="#8e44ad"/><text x="60" y="145" text-anchor="middle" font-family="Arial" font-size="16">t=0</text></g>
+    <g transform="translate(180,0)"><use href="#cat" width="120" height="120" color="#9b59b6" filter="url(#n1)"/><text x="60" y="145" text-anchor="middle" font-family="Arial" font-size="16">t=1</text></g>
+    <g transform="translate(360,0)"><use href="#cat" width="120" height="120" color="#a569bd" filter="url(#n2)"/><text x="60" y="145" text-anchor="middle" font-family="Arial" font-size="16">t=2</text></g>
+    <g transform="translate(540,0)"><use href="#cat" width="120" height="120" color="#af7ac5" filter="url(#n3)"/><text x="60" y="145" text-anchor="middle" font-family="Arial" font-size="16">t=3</text></g>
+    <g transform="translate(720,0)"><use href="#cat" width="120" height="120" color="#bb8fce" filter="url(#n4)"/><text x="60" y="145" text-anchor="middle" font-family="Arial" font-size="16">t=4</text></g>
+    <g transform="translate(900,0)"><use href="#cat" width="120" height="120" color="#c39bd3" filter="url(#n5)"/><text x="60" y="145" text-anchor="middle" font-family="Arial" font-size="16">t=5</text></g>
+    <g transform="translate(1080,0)"><rect width="120" height="120" fill="#ddd" filter="url(#n-pure)"/><text x="60" y="145" text-anchor="middle" font-family="Arial" font-size="16">t=T</text></g>
+    
+    <!-- Notation and Schedule -->
+    <path d="M130 60 L170 60" stroke="#666" stroke-width="2" marker-end="url(#arrow)" />
+    <path d="M310 60 L350 60" stroke="#666" stroke-width="2" marker-end="url(#arrow)" />
+    <path d="M490 60 L530 60" stroke="#666" stroke-width="2" marker-end="url(#arrow)" />
+    <path d="M670 60 L710 60" stroke="#666" stroke-width="2" marker-end="url(#arrow)" />
+    <path d="M850 60 L890 60" stroke="#666" stroke-width="2" marker-end="url(#arrow)" />
+    <path d="M1030 60 L1070 60" stroke="#666" stroke-width="2" marker-end="url(#arrow)" />
+    
+    <text x="600" y="185" text-anchor="middle" font-family="serif" font-size="18">Noise Schedule: β_t ∈ [0.0001, 0.02], α_t = 1 - β_t</text>
+  </g>
+
+  <!-- U-NET ARCHITECTURE (Center) -->
+  <g transform="translate(350, 320)">
+    <rect x="0" y="0" width="700" height="160" fill="none" stroke="#ddd" stroke-dasharray="5,5" />
+    <text x="350" y="-10" text-anchor="middle" font-family="Arial" font-size="20" font-weight="bold" fill="#333">U-Net Architecture (Noise Predictor ϵ_θ)</text>
+    
+    <!-- Encoder -->
+    <rect x="20" y="20" width="60" height="120" fill="#f4ecf7" stroke="#8e44ad" stroke-width="2" />
+    <text x="50" y="85" text-anchor="middle" font-family="Arial" font-size="12" font-weight="bold" transform="rotate(-90, 50, 85)">Down 1</text>
+    
+    <rect x="100" y="40" width="60" height="80" fill="#f4ecf7" stroke="#8e44ad" stroke-width="2" />
+    <text x="130" y="85" text-anchor="middle" font-family="Arial" font-size="12" font-weight="bold" transform="rotate(-90, 130, 85)">Down 2</text>
+    
+    <rect x="180" y="60" width="60" height="40" fill="#f4ecf7" stroke="#8e44ad" stroke-width="2" />
+    <text x="210" y="85" text-anchor="middle" font-family="Arial" font-size="10" font-weight="bold" transform="rotate(-90, 210, 85)">Down 3</text>
+
+    <!-- Bottleneck -->
+    <rect x="320" y="70" width="60" height="20" fill="#fdfefe" stroke="#333" stroke-width="2" />
+    <text x="350" y="85" text-anchor="middle" font-family="Arial" font-size="10" font-weight="bold">Bottleneck</text>
+
+    <!-- Decoder -->
+    <rect x="460" y="60" width="60" height="40" fill="#fef5e7" stroke="#f39c12" stroke-width="2" />
+    <text x="490" y="85" text-anchor="middle" font-family="Arial" font-size="10" font-weight="bold" transform="rotate(90, 490, 85)">Up 3</text>
+
+    <rect x="540" y="40" width="60" height="80" fill="#fef5e7" stroke="#f39c12" stroke-width="2" />
+    <text x="570" y="85" text-anchor="middle" font-family="Arial" font-size="12" font-weight="bold" transform="rotate(90, 570, 85)">Up 2</text>
+
+    <rect x="620" y="20" width="60" height="120" fill="#fef5e7" stroke="#f39c12" stroke-width="2" />
+    <text x="650" y="85" text-anchor="middle" font-family="Arial" font-size="12" font-weight="bold" transform="rotate(90, 650, 85)">Up 1</text>
+
+    <!-- Skip Connections -->
+    <path d="M80 80 C 270 0, 430 0, 620 80" fill="none" stroke="#95a5a6" stroke-width="2" stroke-dasharray="4,4" marker-end="url(#arrow)" />
+    <path d="M160 80 C 270 30, 430 30, 540 80" fill="none" stroke="#95a5a6" stroke-width="2" stroke-dasharray="4,4" marker-end="url(#arrow)" />
+    <text x="350" y="25" text-anchor="middle" font-family="Arial" font-size="12" fill="#7f8c8d">Skip Connections</text>
+
+    <!-- Time Embedding Injection -->
+    <circle cx="350" cy="180" r="18" fill="#ecf0f1" stroke="#2c3e50" stroke-width="2" />
+    <text x="350" y="184" text-anchor="middle" font-family="Arial" font-size="14" font-weight="bold">t</text>
+    <path d="M350 162 L350 90" stroke="#2c3e50" stroke-width="1.5" marker-end="url(#arrow)" />
+    <path d="M332 180 L50 140" stroke="#2c3e50" stroke-width="1" marker-end="url(#arrow)" />
+    <path d="M368 180 L650 140" stroke="#2c3e50" stroke-width="1" marker-end="url(#arrow)" />
+    <text x="380" y="200" font-family="Arial" font-size="12" fill="#2c3e50">Time Embeddings</text>
+  </g>
+
+  <!-- REVERSE PROCESS (Bottom Row) -->
+  <text x="50" y="520" font-family="Arial, sans-serif" font-size="20" font-weight="bold" fill="#f39c12">Reverse Process: p_θ(x_{t-1} | x_t)</text>
+  <g transform="translate(100, 540)">
+    <g transform="translate(0,0)"><rect width="120" height="120" fill="#ddd" filter="url(#n-pure)"/><text x="60" y="145" text-anchor="middle" font-family="Arial" font-size="16">t=T</text></g>
+    <g transform="translate(180,0)"><use href="#cat" width="120" height="120" color="#e67e22" filter="url(#n5)"/><text x="60" y="145" text-anchor="middle" font-family="Arial" font-size="16">t=5</text></g>
+    <g transform="translate(360,0)"><use href="#cat" width="120" height="120" color="#f39c12" filter="url(#n4)"/><text x="60" y="145" text-anchor="middle" font-family="Arial" font-size="16">t=4</text></g>
+    <g transform="translate(540,0)"><use href="#cat" width="120" height="120" color="#f1c40f" filter="url(#n3)"/><text x="60" y="145" text-anchor="middle" font-family="Arial" font-size="16">t=3</text></g>
+    <g transform="translate(720,0)"><use href="#cat" width="120" height="120" color="#f1c40f" filter="url(#n2)"/><text x="60" y="145" text-anchor="middle" font-family="Arial" font-size="16">t=2</text></g>
+    <g transform="translate(900,0)"><use href="#cat" width="120" height="120" color="#f1c40f" filter="url(#n1)"/><text x="60" y="145" text-anchor="middle" font-family="Arial" font-size="16">t=1</text></g>
+    <g transform="translate(1080,0)"><use href="#cat" width="120" height="120" color="#f39c12"/><text x="60" y="145" text-anchor="middle" font-family="Arial" font-size="16">t=0</text></g>
+
+    <path d="M130 60 L170 60" stroke="#666" stroke-width="2" marker-end="url(#arrow)" />
+    <path d="M310 60 L350 60" stroke="#666" stroke-width="2" marker-end="url(#arrow)" />
+    <path d="M490 60 L530 60" stroke="#666" stroke-width="2" marker-end="url(#arrow)" />
+    <path d="M670 60 L710 60" stroke="#666" stroke-width="2" marker-end="url(#arrow)" />
+    <path d="M850 60 L890 60" stroke="#666" stroke-width="2" marker-end="url(#arrow)" />
+    <path d="M1030 60 L1070 60" stroke="#666" stroke-width="2" marker-end="url(#arrow)" />
+  </g>
+  
+  <!-- Global flow arrows -->
+  <path d="M700 240 L700 310" stroke="#333" stroke-width="2" marker-end="url(#arrow)" />
+  <path d="M700 490 L700 535" stroke="#333" stroke-width="2" marker-end="url(#arrow)" />
+  <text x="715" y="270" font-family="Arial" font-size="14" font-weight="bold">x_t, t</text>
+  <text x="715" y="520" font-family="Arial" font-size="14" font-weight="bold">x_{t-1}</text>
+
+</svg>
