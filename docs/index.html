@@ -227,7 +227,7 @@
                     <span style="color: #667eea; font-weight: 600; margin-left: 5px;">[Click to expand]</span>
                 </div>
                 <div style="display: none; color: #555; font-size: 14px; font-family: 'Courier New', monospace; margin-top: 10px; line-height: 1.8;">
-                    Create an SVG demonstrating Fourier decomposition of a complex periodic wave. Left third: A complex waveform (sum of at least 7 sine waves with different frequencies and amplitudes) plotted on an x-y axis spanning two full periods. The wave should have interesting features (sharp peaks, flat regions) showing it's not a simple sine. Middle third: Show the decomposition process with 7 individual sine wave components stacked vertically, each on its own mini-axis. Each component should be labeled with its frequency (f, 2f, 3f, etc.) and amplitude coefficient. Draw faint connection lines from each component to where it contributes to the complex wave. Right third: Bottom section shows the magnitude spectrum as a bar chart (frequency on x-axis, magnitude on y-axis) with 7 bars corresponding to the components. The top section shows the phase spectrum as circular indicators (small circles with a radius line showing phase angle). Include the Fourier series formula. Add smooth CSS animation that oscillates all waves in sync at their respective frequencies so the decomposition is visually verifiable. Scientific visualization style with a light grid background. 1400×800 viewBox. Every time you have a new answer, save the svg file to your workspace.
+                    Create an SVG demonstrating Fourier decomposition of <strong>a complex periodic wave</strong>. Left third: A complex waveform (sum of at least 7 sine waves with different frequencies and amplitudes) plotted on an x-y axis spanning two full periods. The wave should have interesting features (sharp peaks, flat regions) showing it's not a simple sine. Middle third: Show the decomposition process with 7 individual sine wave components stacked vertically, each on its own mini-axis. Each component should be labeled with its frequency (f, 2f, 3f, etc.) and amplitude coefficient. Draw <strong>faint connection lines</strong> from each component to where it contributes to the complex wave. Right third: Bottom section shows the magnitude spectrum as a bar chart (frequency on x-axis, magnitude on y-axis) with 7 bars corresponding to the components. The top section shows the phase spectrum as circular indicators (small circles with a radius line showing phase angle). Include the Fourier series formula. Add smooth CSS animation that <strong>oscillates all waves in sync at their respective frequencies</strong> so the decomposition is visually verifiable. Scientific visualization style with a light grid background. 1400×800 viewBox. Every time you have a new answer, save the svg file to your workspace.
                 </div>
             </div>
             <div class="subsection-header" onclick="toggleSection(this)">
@@ -243,7 +243,7 @@
                 </div>
             </div>
             <div class="subsection-header" onclick="toggleSection(this)">
-                <span>Answers from Other Single Agents</span>
+                <span>Answers from Single Agent Baselines (Running with Multiple Independent Attempts)</span>
             </div>
             <div class="collapsible-content">
                 <div class="svg-grid-three">
@@ -335,14 +335,14 @@
                 </div>
             </div>
             <div class="subsection-header" onclick="toggleSection(this)">
-                <span>Iterative Refinement Process</span>
+                <span>Iterative Refinement Process within MassGen</span>
             </div>
             <div class="collapsible-content">
-                <p style="color: #666; margin-top: 15px; margin-bottom: 15px; font-size: 1em;">In MassGen, different agents are learning from each other and iteratively refining their answers. The following visualizations show the iterative refinement process, demonstrating how agents within MassGen progressively improves their solutions.</p>
+                <p style="color: #666; margin-top: 15px; margin-bottom: 15px; font-size: 1em;">In MassGen, different agents are learning from each other and iteratively refining their answers. The following visualizations show the iterative refinement process, demonstrating how agents within MassGen progressively improves their solutions. An agent could also vote for other agents if it thinks they are better, instead of generating new answers.</p>
                 <h4 style="color: #764ba2; margin-top: 20px; margin-bottom: 15px; font-size: 1.2em;">Agent A</h4>
                 <div class="svg-grid-three">
                     <div class="svg-item">
-                        <h3>Agent A Answer 1</h3>
+                        <h3>Claude Answer 1</h3>
                         <div class="svg-container">
                             <object data="example_svgs/massgen-agent-1-answer.svg" type="image/svg+xml"></object>
                         </div>
@@ -352,19 +352,19 @@
                 <h4 style="color: #764ba2; margin-top: 40px; margin-bottom: 15px; font-size: 1.2em;">Agent B</h4>
                 <div class="svg-grid-three">
                     <div class="svg-item">
-                        <h3>Agent B Answer 1</h3>
+                        <h3>GPT Answer 1</h3>
                         <div class="svg-container">
                             <object data="example_svgs/massgen-agent-2-prev-prev.svg" type="image/svg+xml"></object>
                         </div>
                     </div>
                     <div class="svg-item">
-                        <h3>Agent B Answer 2</h3>
+                        <h3>GPT Answer 2</h3>
                         <div class="svg-container">
                             <object data="example_svgs/massgen-agent-2-prev.svg" type="image/svg+xml"></object>
                         </div>
                     </div>
                     <div class="svg-item">
-                        <h3>Agent B Answer 3</h3>
+                        <h3>GPT Answer 3</h3>
                         <div class="svg-container">
                             <object data="example_svgs/massgen-agent-2-answer.svg" type="image/svg+xml"></object>
                         </div>
@@ -374,13 +374,13 @@
                 <h4 style="color: #764ba2; margin-top: 40px; margin-bottom: 15px; font-size: 1.2em;">Agent C</h4>
                 <div class="svg-grid-three">
                     <div class="svg-item">
-                        <h3>Agent C Answer 1</h3>
+                        <h3>Gemini Answer 1</h3>
                         <div class="svg-container">
                             <object data="example_svgs/massgen-prev-answer.svg" type="image/svg+xml"></object>
                         </div>
                     </div>
                     <div class="svg-item">
-                        <h3>Agent C Answer 2</h3>
+                        <h3>Gemini Answer 2</h3>
                         <div class="svg-container">
                             <object data="example_svgs/massgen-answer.svg" type="image/svg+xml"></object>
                         </div>
