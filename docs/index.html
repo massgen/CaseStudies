@@ -273,7 +273,7 @@
                     </div>
                     <ul style="margin-top: 10px; font-size: 12px; color: #d9534f; line-height: 1.6;">
                         <li>The wave is not moving</li>
-                        <li>Circular indicators are not moving</li>
+                        <li>Circular indicators are covering each other</li>
                     </ul>
                 </div>
                 <div class="svg-item">
@@ -415,10 +415,10 @@
             const fullPrompt = element.nextElementSibling;
             if (fullPrompt.style.display === 'none') {
                 fullPrompt.style.display = 'block';
-                element.innerHTML = '<strong style="color: #764ba2;">Prompt:</strong> Create an SVG demonstrating Fourier decomposition of a complex periodic wave. Left third: A complex waveform (sum of at least 7 sine waves... <span style="color: #667eea; font-weight: 600; margin-left: 5px;">[Click to collapse]</span>';
+                element.innerHTML = '<strong style="color: #764ba2;">Example Prompt:</strong> Create an SVG demonstrating Fourier decomposition of a complex periodic wave. Left third: A complex waveform (sum of at least 7 sine waves... <span style="color: #667eea; font-weight: 600; margin-left: 5px;">[Click to collapse]</span>';
             } else {
                 fullPrompt.style.display = 'none';
-                element.innerHTML = '<strong style="color: #764ba2;">Prompt:</strong> Create an SVG demonstrating Fourier decomposition of a complex periodic wave. Left third: A complex waveform (sum of at least 7 sine waves... <span style="color: #667eea; font-weight: 600; margin-left: 5px;">[Click to expand]</span>';
+                element.innerHTML = '<strong style="color: #764ba2;">Example Prompt:</strong> Create an SVG demonstrating Fourier decomposition of a complex periodic wave. Left third: A complex waveform (sum of at least 7 sine waves... <span style="color: #667eea; font-weight: 600; margin-left: 5px;">[Click to expand]</span>';
             }
         }
     </script>
